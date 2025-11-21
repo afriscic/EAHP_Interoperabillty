@@ -33,6 +33,14 @@ jobs:
       - name: Run SUSHI to generate FHIR definitions
         run: sushi .
 
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+
+      - name: Install Jekyll
+        run: gem install jekyll bundler
+
       - name: Download IG Publisher
         run: |
           mkdir -p input-cache
