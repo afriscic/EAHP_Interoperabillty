@@ -1,0 +1,9 @@
+canonical: http://hl7.org/fhir/us/daf
+fhirVersion: 5.0.0
+FSHOnly: true
+applyExtensionMetadataToRoot: false
+id: example
+name: DataAccessFrameworkDAF
+status: draft
+version: "0"
+dependencies: {}
