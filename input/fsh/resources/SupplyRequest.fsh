@@ -1,4 +1,5 @@
-Profile: SupplyRequest-EAHP_Interoperabillity
+Profile: SupplyRequestEAHPInteroperabillity
+Title: "SupplyRequest EAHP Interoperability"
 Parent: SupplyRequest
 Description: "SupplyRequest profile for EAHP Interoperability SIG."
 
