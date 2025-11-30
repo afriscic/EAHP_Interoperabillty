@@ -14,7 +14,7 @@ Description: "Medication resource representing Brufen tablets, 30 tablets of 600
 * doseForm.text = "Tablet"
 
 // Ingredient (active ingredient: Ibuprofen)
-* ingredient[0].item.code.text = "Ibuprofen"
+* ingredient[0].itemCodeableConcept.text = "Ibuprofen"
 * ingredient[0].isActive = true
 
 // Strength as a Ratio (600 mg per 1 tablet)
