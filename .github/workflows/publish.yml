@@ -30,14 +30,6 @@ jobs:
       - name: Install SUSHI
         run: npm install -g fsh-sushi
 
-      - name: Cache FHIR packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.fhir/packages
-          key: fhir-packages-${{ hashFiles('sushi-config.yaml') }}
-          restore-keys: |
-            fhir-packages-
-
       - name: Run SUSHI to generate FHIR definitions
         run: sushi .
 
@@ -45,7 +37,9 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2'
-          bundler-cache: true
+        
+      - name: Install Jekyll
+        run: gem install jekyll bundler
       
       - name: Add Jekyll to PATH
         run: |
