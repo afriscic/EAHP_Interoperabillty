@@ -9,5 +9,9 @@ Description: "InventoryItem profile for EAHP Interoperability SIG."
 * baseUnit MS
 * netContent MS
 * instance 1..1
+* instance.identifier MS
+* instance.lotNumber MS
+* instance.expiry MS
+* instance.location MS
 * inventoryStatus MS
 * productReference MS

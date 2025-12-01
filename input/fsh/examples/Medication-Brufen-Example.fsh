@@ -1,11 +1,8 @@
 // Medication Instance
-Instance: Medication-Brufen-30x600mg
+Instance: 0123456789012 //Example with GTIN
 InstanceOf: Medication
 Title: "Brufen 30x600mg Tablets"
 Description: "Medication resource representing Brufen tablets, 30 tablets of 600 mg each."
-Usage: #inline
-* identifier[0].system = "http://hl7.org/fhir/sid/gtin"
-* identifier[0].value = "0123456789012"
 * code.text = "Brufen 600mg Tablets"
 * doseForm.text = "Tablet"
 * ingredient[0].item.concept.text = "Ibuprofen"
