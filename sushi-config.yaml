@@ -12,5 +12,6 @@ releaseLabel: "0.0.1"
 dependencies: 
   hl7.fhir.r5.core: 5.0.0
 menu:
+  Index: index.html
   Artifacts: artifacts.html
   Table of Contents: toc.html
