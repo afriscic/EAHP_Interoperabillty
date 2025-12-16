@@ -8,3 +8,4 @@ Description: "Example of a supply request for Brufen tablets using the EAHP Inte
 * authoredOn = "2025-11-30T10:30:00Z"
 * requester = Reference(Device/adc-device) "Automated Dispensing Cabinet"
 * deliverTo = Reference(Location/example-pharmacy) "Hospital Pharmacy"
+* deliverFrom = Reference(Organization/sinteco) "Athena"
