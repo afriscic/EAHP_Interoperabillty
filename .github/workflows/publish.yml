@@ -57,19 +57,6 @@ jobs:
       - name: Run IG Publisher
         run: java -Xmx4g -jar input-cache/publisher.jar -ig . -no-sushi
 
-      - name: Overwrite index.html with redirect
-        run: |
-          echo '<!DOCTYPE html>
-          <html lang="en">
-          <head>
-            <meta http-equiv="refresh" content="0; url=artifacts.html" />
-            <title>Redirecting...</title>
-          </head>
-          <body>
-            <p>Redirecting to <a href="artifacts.html">artifacts.html</a></p>
-          </body>
-          </html>' > output/index.html
-
       - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
