@@ -11,6 +11,10 @@ Description: "SupplyRequest profile for EAHP Interoperability SIG."
 * priority MS
 * authoredOn MS
 * requester only Reference(Practitioner or Device)
+* deliverFrom 1..1
 * deliverFrom MS
+* deliverFrom only Reference(Location)
+* deliverFrom ^short = "The automatic location reperesenting the automation that should supply the medications"
 * deliverTo MS
 * deliverTo only Reference(Organization or Location)
+* deliverTo ^short = "The destination of the supply request. If it must be delivered to an automation, this must be a location linked with the device representing the automation."

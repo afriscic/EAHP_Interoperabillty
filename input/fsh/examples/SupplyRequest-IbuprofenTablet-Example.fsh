@@ -6,5 +6,6 @@ Description: "Example of a supply request for Ibuprofen Tablet 500mg tablets usi
 * item.reference = Reference(M00345)
 * quantity.value = 2 //We need to define if we will always request in baseUnits
 * authoredOn = "2025-11-30T10:30:00Z"
-* requester = Reference(Device/adc-device) "Automated Dispensing Cabinet"
-* deliverTo = Reference(Location/example-pharmacy) "Hospital Pharmacy"
+* requester = Reference(Device/loc-adc-cardio-01) "Cardiology Ward ADC"
+* deliverFrom = Reference(Location/loc-robot-main) "Hospital Pharmacy"
+* deliverTo = Reference(Location/loc-adc-cardio-01) "Cardiology Ward ADC"
