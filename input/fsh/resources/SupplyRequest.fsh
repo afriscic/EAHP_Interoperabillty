@@ -19,6 +19,10 @@ Description: "SupplyRequest profile for EAHP Interoperability SIG."
   * ^definition = "Normally "
   * type = EAHPSupplyRequestIdentifierTypeCS#RequestId
 
+* quantity only EAHPLogisticalQuantity
+* quantity
+  * ^short = "The count of indivisible logistical units (e.g., pills, packs) requested."
+  * ^definition = "The quantity of the specified item to be supplied, expressed strictly as a count of physical, atomic units (Indivisible Logistical Units). This represents the handling unit of the automation (e.g., 1 vial, 1 blister, 1 box) rather than the clinical strength or volume."
 * priority MS
 * authoredOn MS
 * requester only Reference(Practitioner or Device)
