@@ -7,7 +7,7 @@ Description: "Example of a supply request for Ibuprofen Tablet 500mg tablets usi
 * identifier[requestId].system = "http://hospital-system.org/requests" // Best practice to include a system
 
 * item.reference = Reference(M00345)
-* quantity.value = 2 //We need to define if we will always request in baseUnits
+* quantity.value = 2
 * authoredOn = "2025-11-30T10:30:00Z"
 * requester = Reference(Device/dev-adc-cardio-01) "Cardiology Ward ADC"
 * deliverFrom = Reference(Location/loc-robot-main) "Hospital Pharmacy"
