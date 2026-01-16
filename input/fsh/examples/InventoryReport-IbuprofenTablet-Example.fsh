@@ -7,7 +7,7 @@ Description: "InventoryReport documenting the current stock of Brufen 600mg tabl
 * countType = #snapshot
 * reportedDateTime = "2024-12-01T10:30:00Z"
 
-* reporter = Reference(Practitioner/example-pharmacist) "Hospital Pharmacist"
+* reporter = Reference(Device/dev-robot-wholepack-01) "Central Pharmacy Storage Unit Alpha"
 
 * reportingPeriod.start = "2024-12-01T00:00:00Z"
 * reportingPeriod.end = "2024-12-01T23:59:59Z"

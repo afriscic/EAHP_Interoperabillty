@@ -20,22 +20,28 @@ Description: "Defines the specific logistical unit managed within EAHP interoper
   * ^slicing.discriminator.type = #pattern
   * ^slicing.discriminator.path = "type"
   * ^slicing.rules = #open
-  * ^short = "List of identifiers (Raw Scan, Serial, or Vendor ID)"
+  * ^short = "List of identifiers (Raw Scan, Serial, Product Barcode or Vendor ID)"
 
 * instance.identifier contains
     rawScan 0..1 MS and
     serialNumber 0..1 MS and
-    vendorAssigned 0..1 MS
+    vendorAssigned 0..1 MS and
+    productBarCode 0..1 MS
 
 * instance.identifier[rawScan]
-  * ^short = "Raw 2D Barcode Data (e.g. GS1, ASC etc)"
+  * ^short = "Raw 2D Barcode Data (e.g. GS1, IFA ASC)"
   * ^definition = "The unparsed, full string read from a commercial pack barcode. Globally unique."
   * type = EAHPIdentifierTypeCS#FMD_BARCODE
 
 * instance.identifier[serialNumber]
   * ^short = "Parsed Serial Number"
-  * ^definition = "The distinct serial number component extracted from the package identifier. Note: This string is NOT globally unique on its own. It must be scoped by the Product ID (GTIN), which should be provided in the system field (e.g., https://www.gs1.org/gtin/{GTIN})."
+  * ^definition = "The distinct serial number component extracted from the package identifier. The distinct serial number component extracted from the package identifier. Note: This string is NOT globally unique on its own. It must be scoped by the Product BarCode to be unique."
   * type = http://terminology.hl7.org/CodeSystem/v2-0203#SNO
+
+* instance.identifier[productBarCode]
+  * ^short = "Scanned Product Code (GTIN, PZN, etc)"
+  * ^definition = "The portion of the barcode identifying the product (e.g. GTIN from a GS1 string)."
+  * type = EAHPIdentifierTypeCS#PRODUCT_BARCODE
 
 * instance.identifier[vendorAssigned]
   * ^short = "Robot-generated Unique ID (for Unit Doses/Bags)"
@@ -46,9 +52,9 @@ Description: "Defines the specific logistical unit managed within EAHP interoper
 * instance.location MS
 * inventoryStatus MS
 * productReference MS
-
 CodeSystem: EAHPIdentifierTypeCS
 Id: eahp-identifier-type-cs
 Title: "EAHP Identifier Types"
 Description: "Custom identifier types for pharmacy automation."
 * #FMD_BARCODE "Raw Scan Data" "The raw, unparsed data string captured from the package barcode (e.g., GS1 DataMatrix). This string contains the full set of encoded data (GTIN, Lot, Expiry, Serial) including hidden group separators. It is the primary technical key for Falsified Medicines Directive (FMD) verification."
+* #PRODUCT_BARCODE "Product Barcode" "The portion of the barcode identifying the product (e.g. GTIN, PZN)."
