@@ -47,13 +47,13 @@ Below is a sample of the generated barcodes (first item from each product):
 
 ### Demo Medication A 100mg Tablets
 
-![Barcode for 02012345678903](barcodes/02012345678903/barcode0.png)
+<img src="barcodes/02012345678903/barcode0.png" alt="Barcode for 02012345678903" width="200"/>
 
 ### Demo Medication B 500mg Capsules
 
-![Barcode for 02011111111118](barcodes/02011111111118/barcode0.png)
+<img src="barcodes/02011111111118/barcode0.png" alt="Barcode for 02011111111118" width="200"/>
 
 ### Demo Medication C 250mg Syrup
 
-![Barcode for 02064721898122](barcodes/02064721898122/barcode0.png)
+<img src="barcodes/02064721898122/barcode0.png" alt="Barcode for 02064721898122" width="200"/>
 

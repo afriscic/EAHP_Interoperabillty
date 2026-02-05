@@ -9,10 +9,36 @@ version: "0.0.1"
 packageId: "org.eahp.interoperability"
 copyrightYear: 2025
 releaseLabel: "0.0.1"
-dependencies: 
+dependencies:
   hl7.fhir.r5.core: 5.0.0
 menu:
   Index: index.html
   Artifacts: artifacts.html
   Generated Examples: generated-examples.html
   Table of Contents: toc.html
+groups:
+  GeneratedExamples:
+    name: Generated Examples
+    description: Auto-generated examples from barcode data (Demo Medications and Inventory Items)
+    resources:
+    - Medication/MED001
+    - InventoryItem/gen-inv-MED001-1
+    - InventoryItem/gen-inv-MED001-2
+    - InventoryItem/gen-inv-MED001-3
+    - InventoryItem/gen-inv-MED001-4
+    - InventoryItem/gen-inv-MED001-5
+    - InventoryItem/gen-inv-MED001-6
+    - InventoryItem/gen-inv-MED001-7
+    - InventoryItem/gen-inv-MED001-8
+    - InventoryItem/gen-inv-MED001-9
+    - InventoryItem/gen-inv-MED001-10
+    - Medication/MED002
+    - InventoryItem/gen-inv-MED002-1
+    - InventoryItem/gen-inv-MED002-2
+    - InventoryItem/gen-inv-MED002-3
+    - InventoryItem/gen-inv-MED002-4
+    - InventoryItem/gen-inv-MED002-5
+    - Medication/MED003
+    - InventoryItem/gen-inv-MED003-1
+    - InventoryItem/gen-inv-MED003-2
+...

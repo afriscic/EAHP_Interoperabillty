@@ -3,6 +3,7 @@ using System.Text.Json;
 using NanoidDotNet;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
+using YamlDotNet.RepresentationModel;
 using ZXing;
 using ZXing.Common;
 using ZXing.Rendering;
@@ -12,6 +13,7 @@ Console.WriteLine("Starting Barcode and FHIR Example Generator...");
 var barcodeOutputDir = "Barcodes";
 var barcodeImageDir = "input/images/barcodes";  // For IG Publisher
 var fshOutputDir = "input/fsh/examples/generated";
+var sushiConfigPath = "sushi-config.yaml";
 
 // Clean and create output directories
 if (Directory.Exists(barcodeOutputDir))
@@ -30,6 +32,9 @@ Directory.CreateDirectory(fshOutputDir);
 var text = File.ReadAllText("BarcodeInput.json");
 var barcodes = JsonSerializer.Deserialize<BarcodeData[]>(text);
 ArgumentNullException.ThrowIfNull(barcodes);
+
+// Track generated resource IDs for sushi-config.yaml
+var generatedResources = new List<string>();
 
 // Setup barcode renderers
 var svgRenderer = new SvgRenderer();
@@ -80,6 +85,9 @@ foreach (var barcode in barcodes)
     medicationFsh.AppendLine($"* status = #active");
     medicationFsh.AppendLine();
 
+    // Track medication resource
+    generatedResources.Add($"Medication/{barcode.HISCode}");
+
     // Generate barcodes and inventory items
     for (int i = 0; i < barcode.No; i++)
     {
@@ -101,8 +109,8 @@ foreach (var barcode in barcodes)
         // Also save to IG images folder for documentation
         image.SaveAsPng(Path.Combine(barcodeImagePath, $"barcode{i}.png"));
 
-        // Generate InventoryItem FSH
-        var inventoryItemId = Guid.NewGuid().ToString();
+        // Generate InventoryItem FSH with predictable ID
+        var inventoryItemId = $"gen-inv-{barcode.HISCode}-{i + 1}";
 
         // Escape the raw scan for FSH (replace GS char with unicode escape)
         var rawScanEscaped = rawScan.Replace("\u001d", "\\u001D");
@@ -124,6 +132,9 @@ foreach (var barcode in barcodes)
         inventoryFsh.AppendLine($"* instance.expiry = \"{barcode.ExpiryDate}\"");
         inventoryFsh.AppendLine($"* productReference = Reference({barcode.HISCode})");
         inventoryFsh.AppendLine();
+
+        // Track inventory item resource
+        generatedResources.Add($"InventoryItem/{inventoryItemId}");
     }
 }
 
@@ -191,17 +202,75 @@ foreach (var barcode in barcodes)
 {
     summaryMd.AppendLine($"### {barcode.MedicationName}");
     summaryMd.AppendLine();
-    summaryMd.AppendLine($"![Barcode for {barcode.GTIN}](barcodes/{barcode.GTIN}/barcode0.png)");
+    summaryMd.AppendLine($"<img src=\"barcodes/{barcode.GTIN}/barcode0.png\" alt=\"Barcode for {barcode.GTIN}\" width=\"200\"/>");
     summaryMd.AppendLine();
 }
 
 File.WriteAllText("input/pagecontent/generated-examples.md", summaryMd.ToString());
+
+// Update sushi-config.yaml with generated resources
+UpdateSushiConfig(sushiConfigPath, generatedResources);
 
 Console.WriteLine();
 Console.WriteLine("Generation complete!");
 Console.WriteLine($"  - Barcode images: {barcodeOutputDir}/ and {barcodeImageDir}/");
 Console.WriteLine($"  - FSH files: {fshOutputDir}/");
 Console.WriteLine($"  - Page content: input/pagecontent/generated-examples.md");
+Console.WriteLine($"  - Updated: {sushiConfigPath}");
+
+static void UpdateSushiConfig(string configPath, List<string> generatedResources)
+{
+    Console.WriteLine($"Updating {configPath} with {generatedResources.Count} generated resources...");
+
+    var yaml = new YamlStream();
+    using (var reader = new StreamReader(configPath))
+    {
+        yaml.Load(reader);
+    }
+
+    var root = (YamlMappingNode)yaml.Documents[0].RootNode;
+
+    // Find or create groups node
+    YamlMappingNode groupsNode;
+    if (root.Children.ContainsKey("groups"))
+    {
+        groupsNode = (YamlMappingNode)root.Children["groups"];
+    }
+    else
+    {
+        groupsNode = new YamlMappingNode();
+        root.Children.Add("groups", groupsNode);
+    }
+
+    // Create GeneratedExamples group
+    var generatedExamplesNode = new YamlMappingNode
+    {
+        { "name", "Generated Examples" },
+        { "description", "Auto-generated examples from barcode data (Demo Medications and Inventory Items)" }
+    };
+
+    // Add resources as a sequence
+    var resourcesSequence = new YamlSequenceNode();
+    foreach (var resource in generatedResources)
+    {
+        resourcesSequence.Add(resource);
+    }
+    generatedExamplesNode.Add("resources", resourcesSequence);
+
+    // Update or add GeneratedExamples group
+    if (groupsNode.Children.ContainsKey("GeneratedExamples"))
+    {
+        groupsNode.Children["GeneratedExamples"] = generatedExamplesNode;
+    }
+    else
+    {
+        groupsNode.Children.Add("GeneratedExamples", generatedExamplesNode);
+    }
+
+    // Write back to file
+    using var writer = new StreamWriter(configPath);
+    yaml.Save(writer, assignAnchors: false);
+}
 
 class BarcodeData
 {

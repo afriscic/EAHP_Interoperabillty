@@ -21,10 +21,14 @@ jobs:
       - name: Generate barcodes
         run: dotnet run --project BarcodeGenerator/BarcodeGenerator.csproj
 
-      - name: Commit and push barcodes
+      - name: Commit and push generated files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add Barcodes/
-          git diff --cached --quiet || git commit -m "Generate barcodes from BarcodeInput.json"
+          git add input/images/barcodes/
+          git add input/fsh/examples/generated/
+          git add input/pagecontent/generated-examples.md
+          git add sushi-config.yaml
+          git diff --cached --quiet || git commit -m "Generate barcodes and FHIR examples from BarcodeInput.json"
           git push
