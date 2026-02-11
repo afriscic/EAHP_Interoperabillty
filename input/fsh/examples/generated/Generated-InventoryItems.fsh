@@ -13,7 +13,7 @@ Description: "Auto-generated InventoryItem for Demo Medication A 100mg Tablets. 
 * instance.identifier[serialNumber].value = "KC9bFtJidc"
 * instance.identifier[serialNumber].type = http://terminology.hl7.org/CodeSystem/v2-0203#SNO
 * instance.identifier[productBarCode].value = "02012345678903"
-* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PRODUCT_BARCODE
+* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PC
 * instance.lotNumber = "BARCELONA2026"
 * instance.expiry = "2026-03-20"
 * productReference = Reference(MED001)
@@ -30,7 +30,7 @@ Description: "Auto-generated InventoryItem for Demo Medication A 100mg Tablets. 
 * instance.identifier[serialNumber].value = "L1kOQI6Ion"
 * instance.identifier[serialNumber].type = http://terminology.hl7.org/CodeSystem/v2-0203#SNO
 * instance.identifier[productBarCode].value = "02012345678903"
-* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PRODUCT_BARCODE
+* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PC
 * instance.lotNumber = "BARCELONA2026"
 * instance.expiry = "2026-03-20"
 * productReference = Reference(MED001)
@@ -47,7 +47,7 @@ Description: "Auto-generated InventoryItem for Demo Medication A 100mg Tablets. 
 * instance.identifier[serialNumber].value = "1SEmyTzLQM"
 * instance.identifier[serialNumber].type = http://terminology.hl7.org/CodeSystem/v2-0203#SNO
 * instance.identifier[productBarCode].value = "02012345678903"
-* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PRODUCT_BARCODE
+* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PC
 * instance.lotNumber = "BARCELONA2026"
 * instance.expiry = "2026-03-20"
 * productReference = Reference(MED001)
@@ -64,7 +64,7 @@ Description: "Auto-generated InventoryItem for Demo Medication A 100mg Tablets. 
 * instance.identifier[serialNumber].value = "xgbNoMHBFF"
 * instance.identifier[serialNumber].type = http://terminology.hl7.org/CodeSystem/v2-0203#SNO
 * instance.identifier[productBarCode].value = "02012345678903"
-* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PRODUCT_BARCODE
+* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PC
 * instance.lotNumber = "BARCELONA2026"
 * instance.expiry = "2026-03-20"
 * productReference = Reference(MED001)
@@ -81,7 +81,7 @@ Description: "Auto-generated InventoryItem for Demo Medication A 100mg Tablets. 
 * instance.identifier[serialNumber].value = "hQjtw1Btr8"
 * instance.identifier[serialNumber].type = http://terminology.hl7.org/CodeSystem/v2-0203#SNO
 * instance.identifier[productBarCode].value = "02012345678903"
-* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PRODUCT_BARCODE
+* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PC
 * instance.lotNumber = "BARCELONA2026"
 * instance.expiry = "2026-03-20"
 * productReference = Reference(MED001)
@@ -98,7 +98,7 @@ Description: "Auto-generated InventoryItem for Demo Medication A 100mg Tablets. 
 * instance.identifier[serialNumber].value = "aj2fkbqZbo"
 * instance.identifier[serialNumber].type = http://terminology.hl7.org/CodeSystem/v2-0203#SNO
 * instance.identifier[productBarCode].value = "02012345678903"
-* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PRODUCT_BARCODE
+* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PC
 * instance.lotNumber = "BARCELONA2026"
 * instance.expiry = "2026-03-20"
 * productReference = Reference(MED001)
@@ -115,7 +115,7 @@ Description: "Auto-generated InventoryItem for Demo Medication A 100mg Tablets. 
 * instance.identifier[serialNumber].value = "yLGibTMjsY"
 * instance.identifier[serialNumber].type = http://terminology.hl7.org/CodeSystem/v2-0203#SNO
 * instance.identifier[productBarCode].value = "02012345678903"
-* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PRODUCT_BARCODE
+* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PC
 * instance.lotNumber = "BARCELONA2026"
 * instance.expiry = "2026-03-20"
 * productReference = Reference(MED001)
@@ -132,7 +132,7 @@ Description: "Auto-generated InventoryItem for Demo Medication A 100mg Tablets. 
 * instance.identifier[serialNumber].value = "w3cuFYVmWU"
 * instance.identifier[serialNumber].type = http://terminology.hl7.org/CodeSystem/v2-0203#SNO
 * instance.identifier[productBarCode].value = "02012345678903"
-* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PRODUCT_BARCODE
+* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PC
 * instance.lotNumber = "BARCELONA2026"
 * instance.expiry = "2026-03-20"
 * productReference = Reference(MED001)
@@ -149,7 +149,7 @@ Description: "Auto-generated InventoryItem for Demo Medication A 100mg Tablets. 
 * instance.identifier[serialNumber].value = "qpoVJpA7gW"
 * instance.identifier[serialNumber].type = http://terminology.hl7.org/CodeSystem/v2-0203#SNO
 * instance.identifier[productBarCode].value = "02012345678903"
-* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PRODUCT_BARCODE
+* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PC
 * instance.lotNumber = "BARCELONA2026"
 * instance.expiry = "2026-03-20"
 * productReference = Reference(MED001)
@@ -166,7 +166,7 @@ Description: "Auto-generated InventoryItem for Demo Medication A 100mg Tablets. 
 * instance.identifier[serialNumber].value = "rs1NixkQqd"
 * instance.identifier[serialNumber].type = http://terminology.hl7.org/CodeSystem/v2-0203#SNO
 * instance.identifier[productBarCode].value = "02012345678903"
-* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PRODUCT_BARCODE
+* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PC
 * instance.lotNumber = "BARCELONA2026"
 * instance.expiry = "2026-03-20"
 * productReference = Reference(MED001)
@@ -183,7 +183,7 @@ Description: "Auto-generated InventoryItem for Demo Medication B 500mg Capsules.
 * instance.identifier[serialNumber].value = "bnQDAq3N6D"
 * instance.identifier[serialNumber].type = http://terminology.hl7.org/CodeSystem/v2-0203#SNO
 * instance.identifier[productBarCode].value = "02011111111118"
-* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PRODUCT_BARCODE
+* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PC
 * instance.lotNumber = "EAHP"
 * instance.expiry = "2026-12-31"
 * productReference = Reference(MED002)
@@ -200,7 +200,7 @@ Description: "Auto-generated InventoryItem for Demo Medication B 500mg Capsules.
 * instance.identifier[serialNumber].value = "Mc4UPKX13x"
 * instance.identifier[serialNumber].type = http://terminology.hl7.org/CodeSystem/v2-0203#SNO
 * instance.identifier[productBarCode].value = "02011111111118"
-* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PRODUCT_BARCODE
+* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PC
 * instance.lotNumber = "EAHP"
 * instance.expiry = "2026-12-31"
 * productReference = Reference(MED002)
@@ -217,7 +217,7 @@ Description: "Auto-generated InventoryItem for Demo Medication B 500mg Capsules.
 * instance.identifier[serialNumber].value = "9ZmJN1x6bd"
 * instance.identifier[serialNumber].type = http://terminology.hl7.org/CodeSystem/v2-0203#SNO
 * instance.identifier[productBarCode].value = "02011111111118"
-* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PRODUCT_BARCODE
+* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PC
 * instance.lotNumber = "EAHP"
 * instance.expiry = "2026-12-31"
 * productReference = Reference(MED002)
@@ -234,7 +234,7 @@ Description: "Auto-generated InventoryItem for Demo Medication B 500mg Capsules.
 * instance.identifier[serialNumber].value = "5napgfiq2M"
 * instance.identifier[serialNumber].type = http://terminology.hl7.org/CodeSystem/v2-0203#SNO
 * instance.identifier[productBarCode].value = "02011111111118"
-* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PRODUCT_BARCODE
+* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PC
 * instance.lotNumber = "EAHP"
 * instance.expiry = "2026-12-31"
 * productReference = Reference(MED002)
@@ -251,7 +251,7 @@ Description: "Auto-generated InventoryItem for Demo Medication B 500mg Capsules.
 * instance.identifier[serialNumber].value = "fX1W3j1ZIO"
 * instance.identifier[serialNumber].type = http://terminology.hl7.org/CodeSystem/v2-0203#SNO
 * instance.identifier[productBarCode].value = "02011111111118"
-* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PRODUCT_BARCODE
+* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PC
 * instance.lotNumber = "EAHP"
 * instance.expiry = "2026-12-31"
 * productReference = Reference(MED002)
@@ -268,7 +268,7 @@ Description: "Auto-generated InventoryItem for Demo Medication C 250mg Syrup. Ba
 * instance.identifier[serialNumber].value = "w9EzA2yhuU"
 * instance.identifier[serialNumber].type = http://terminology.hl7.org/CodeSystem/v2-0203#SNO
 * instance.identifier[productBarCode].value = "02064721898122"
-* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PRODUCT_BARCODE
+* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PC
 * instance.lotNumber = "CONGRESS"
 * instance.expiry = "2027-06-30"
 * productReference = Reference(MED003)
@@ -285,7 +285,7 @@ Description: "Auto-generated InventoryItem for Demo Medication C 250mg Syrup. Ba
 * instance.identifier[serialNumber].value = "HJwClJYY9X"
 * instance.identifier[serialNumber].type = http://terminology.hl7.org/CodeSystem/v2-0203#SNO
 * instance.identifier[productBarCode].value = "02064721898122"
-* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PRODUCT_BARCODE
+* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PC
 * instance.lotNumber = "CONGRESS"
 * instance.expiry = "2027-06-30"
 * productReference = Reference(MED003)

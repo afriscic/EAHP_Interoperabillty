@@ -1,0 +1,61 @@
+{
+  "resourceType": "InventoryItem",
+  "id": "019c4c96-dde9-79b4-946a-8ec06054ad5a",
+  "status": "active",
+  "netContent": {
+    "value": 30
+  },
+  "instance": {
+    "identifier": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "https://afriscic.github.io/EAHP_Interoperabillty/CodeSystem/eahp-identifier-type-cs",
+              "code": "FMD_BARCODE"
+            }
+          ]
+        },
+        "value": "\u001D010201234567890310BARCELONA2026\u001D1726033121TNXCNGmX6R"
+      },
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "https://afriscic.github.io/EAHP_Interoperabillty/CodeSystem/eahp-identifier-type-cs",
+              "code": "HIS_CODE"
+            }
+          ]
+        },
+        "value": "MED001"
+      },
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "https://afriscic.github.io/EAHP_Interoperabillty/CodeSystem/eahp-identifier-type-cs",
+              "code": "PC"
+            }
+          ]
+        },
+        "value": "02012345678903"
+      },
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+              "code": "SNO"
+            }
+          ]
+        },
+        "value": "TNXCNGmX6R"
+      }
+    ],
+    "lotNumber": "BARCELONA2026",
+    "expiry": "2026-03-31"
+  },
+  "productReference": {
+    "reference": "MED001"
+  }
+}

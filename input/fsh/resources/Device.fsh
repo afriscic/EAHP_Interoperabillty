@@ -1,7 +1,7 @@
 Profile: DeviceEAHPInteroperability
 Title: "Device EAHP Interoperability"
 Parent: Device
-Description: "Device profile for EAHP Interoperability SIG. Represents automation actors (Whole Pack Robots, Compunding Robots, Smart Cabinets, Unidose Robots etc) capable of requesting or supplying medicines."
+Description: "Device profile for EAHP Interoperability SIG. Represents automation actors (Whole Pack Robots, Compounding Robots, Smart Cabinets, Unidose Robots etc) capable of requesting or supplying medicines."
 
 * ^status = #active
 * ^publisher = "EAHP Interoperability SIG"

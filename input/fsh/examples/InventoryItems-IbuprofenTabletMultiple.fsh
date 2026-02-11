@@ -1,7 +1,7 @@
 Instance: f7a3c8e5-2b94-4d16-9a87-3e5f6d1c8b42
 InstanceOf: InventoryItemEAHPInteroperability
 Title: "Inventory Item with multiple identifiers for GlobalPharma Ibuprofen 30x600mg Pack"
-Description: "InventoryItem instance representing a pack of Brufen 30x600mg tablets. This InvertoryItem has multiple identifiers."
+Description: "InventoryItem instance representing a pack of Brufen 30x600mg tablets. This InventoryItem has multiple identifiers."
 * status = #active
 * baseUnit = EAHPLogisticsUnitCS#indivisible-logistical-unit
 * netContent.value = 30

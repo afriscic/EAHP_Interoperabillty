@@ -1,5 +1,5 @@
 Instance: SupplyRequest-IbuprofenTablet-Example
-InstanceOf: SupplyRequestEAHPInteroperabillity
+InstanceOf: SupplyRequestEAHPInteroperability
 Title: "Example Supply Request for Ibuprofen Tablet 500mg"
 Description: "Example of a supply request for Ibuprofen Tablet 500mg tablets using the EAHP Interoperability profile."
 * identifier[requestId].value = "REQ-12345"

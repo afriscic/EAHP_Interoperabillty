@@ -269,7 +269,7 @@ Request Body (Transaction Bundle):
       "id" : "SupplyRequest-IbuprofenTablet-1Unidose",
       "meta" : {
         "profile" : [
-          🔗 "https://afriscic.github.io/EAHP_Interoperabillty//StructureDefinition/SupplyRequestEAHPInteroperabillity"
+          🔗 "https://afriscic.github.io/EAHP_Interoperabillty//StructureDefinition/SupplyRequestEAHPInteroperability"
         ]
       },
       "identifier" : [
@@ -316,7 +316,7 @@ Request Body (Transaction Bundle):
       "id" : "SupplyRequest-IbuprofenTablet-1Pack",
       "meta" : {
         "profile" : [
-          🔗 "https://afriscic.github.io/EAHP_Interoperabillty//StructureDefinition/SupplyRequestEAHPInteroperabillity"
+          🔗 "https://afriscic.github.io/EAHP_Interoperabillty//StructureDefinition/SupplyRequestEAHPInteroperability"
         ]
       },
       "identifier" : [

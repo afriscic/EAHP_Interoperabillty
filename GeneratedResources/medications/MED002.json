@@ -1,0 +1,15 @@
+{
+  "resourceType": "Medication",
+  "id": "MED002",
+  "code": {
+    "text": "Noradrenalin EAHP amp. 5mg/10mL a5"
+  },
+  "doseForm": {
+    "coding": [
+      {
+        "system": "http://hl7.org/fhir/ValueSet/medication-form-codes",
+        "code": "1208958005"
+      }
+    ]
+  }
+}

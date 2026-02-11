@@ -1,32 +1,47 @@
 [
   {
-    "No": 10,
+    "No": 5,
     "GTIN": "02012345678903",
     "BATCH": "BARCELONA2026",
     "HISCode": "MED001",
-    "MedicationName": "Demo Medication A 100mg Tablets",
-    "Manufacturer": "PharmaCorp",
+    "MedicationName": "Ibuprofen EAHP tablets 30x400mg",
     "NetContentPerPack": 30,
-    "ExpiryDate": "2026-03-20"
+    "DoseCode": "421026006"
   },
   {
     "No": 5,
     "GTIN": "02011111111118",
     "BATCH": "EAHP",
     "HISCode": "MED002",
-    "MedicationName": "Demo Medication B 500mg Capsules",
-    "Manufacturer": "HealthMeds Inc",
-    "NetContentPerPack": 20,
-    "ExpiryDate": "2026-12-31"
+    "MedicationName": "Noradrenalin EAHP amp. 5mg/10mL a5",
+    "NetContentPerPack": 5,
+    "DoseCode": "1208958005"
   },
   {
-    "No": 2,
+    "No": 5,
     "GTIN": "02064721898122",
     "BATCH": "CONGRESS",
     "HISCode": "MED003",
-    "MedicationName": "Demo Medication C 250mg Syrup",
-    "Manufacturer": "MediGlobal",
+    "MedicationName": "Saline sol. EAHP 0,9%",
     "NetContentPerPack": 1,
-    "ExpiryDate": "2027-06-30"
+    "DoseCode": "385229008"
+  },
+  {
+    "No": 5,
+    "GTIN": "02012345678903",
+    "BATCH": "BARCELONA2026",
+    "HISCode": "MED001",
+    "MedicationName": "Ibuprofen EAHP tablets 30x400mg",
+    "NetContentPerPack": 1,
+    "DoseCode": "421026006"
+  },
+  {
+    "No": 5,
+    "GTIN": "02011111111118",
+    "BATCH": "EAHP",
+    "HISCode": "MED002",
+    "MedicationName": "Noradrenalin EAHP amp. 5mg/10mL a5",
+    "NetContentPerPack": 1,
+    "DoseCode": "1208958005"
   }
 ]

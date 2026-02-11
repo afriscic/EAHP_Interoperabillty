@@ -1,0 +1,15 @@
+{
+  "resourceType": "Medication",
+  "id": "MED003",
+  "code": {
+    "text": "Saline sol. EAHP 0,9%"
+  },
+  "doseForm": {
+    "coding": [
+      {
+        "system": "http://hl7.org/fhir/ValueSet/medication-form-codes",
+        "code": "385229008"
+      }
+    ]
+  }
+}

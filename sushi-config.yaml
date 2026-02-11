@@ -25,7 +25,7 @@ groups:
       - StructureDefinition/InventoryItemEAHPInteroperability
       - StructureDefinition/MedicationEAHP
       - StructureDefinition/SupplyDeliveryEAHPInteroperability
-      - StructureDefinition/SupplyRequestEAHPInteroperabillity
+      - StructureDefinition/SupplyRequestEAHPInteroperability
   DataTypeProfiles:
     name: Data Type Profiles
     description: FHIR Data Type Profiles defined in this IG

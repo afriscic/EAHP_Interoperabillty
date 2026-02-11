@@ -35,13 +35,13 @@ Description: "Defines the specific logistical unit managed within EAHP interoper
 
 * instance.identifier[serialNumber]
   * ^short = "Parsed Serial Number"
-  * ^definition = "The distinct serial number component extracted from the package identifier. The distinct serial number component extracted from the package identifier. Note: This string is NOT globally unique on its own. It must be scoped by the Product BarCode to be unique."
+  * ^definition = "The distinct serial number component extracted from the package identifier. Note: This string is NOT globally unique on its own. It must be scoped by the Product BarCode to be unique."
   * type = http://terminology.hl7.org/CodeSystem/v2-0203#SNO
 
 * instance.identifier[productBarCode]
   * ^short = "Scanned Product Code (GTIN, PZN, etc)"
   * ^definition = "The portion of the barcode identifying the product (e.g. GTIN from a GS1 string)."
-  * type = EAHPIdentifierTypeCS#PRODUCT_BARCODE
+  * type = EAHPIdentifierTypeCS#PC
 
 * instance.identifier[vendorAssigned]
   * ^short = "Robot-generated Unique ID (for Unit Doses/Bags)"
@@ -52,9 +52,11 @@ Description: "Defines the specific logistical unit managed within EAHP interoper
 * instance.location MS
 * inventoryStatus MS
 * productReference MS
+
 CodeSystem: EAHPIdentifierTypeCS
 Id: eahp-identifier-type-cs
 Title: "EAHP Identifier Types"
 Description: "Custom identifier types for pharmacy automation."
 * #FMD_BARCODE "Raw Scan Data" "The raw, unparsed data string captured from the package barcode (e.g., GS1 DataMatrix). This string contains the full set of encoded data (GTIN, Lot, Expiry, Serial) including hidden group separators. It is the primary technical key for Falsified Medicines Directive (FMD) verification."
-* #PRODUCT_BARCODE "Product Barcode" "The portion of the barcode identifying the product (e.g. GTIN, PZN)."
+* #PC "Product Code" "The Product Code from the barcode identifying the product (e.g. GTIN, PZN, NRN...)."
+* #HIS_CODE "HIS Code" "The code assigned by Hospital Information System."

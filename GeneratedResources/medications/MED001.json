@@ -1,0 +1,15 @@
+{
+  "resourceType": "Medication",
+  "id": "MED001",
+  "code": {
+    "text": "Ibuprofen EAHP tablets 30x400mg"
+  },
+  "doseForm": {
+    "coding": [
+      {
+        "system": "http://hl7.org/fhir/ValueSet/medication-form-codes",
+        "code": "421026006"
+      }
+    ]
+  }
+}

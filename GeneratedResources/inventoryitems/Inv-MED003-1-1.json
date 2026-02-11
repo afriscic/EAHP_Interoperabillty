@@ -1,0 +1,72 @@
+{
+  "resourceType": "InventoryItem",
+  "id": "019c4c96-de02-7780-aeae-bd3bafb4ebbf",
+  "status": "active",
+  "netContent": {
+    "value": 1
+  },
+  "instance": {
+    "identifier": [
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "https://afriscic.github.io/EAHP_Interoperabillty/CodeSystem/eahp-identifier-type-cs",
+              "code": "FMD_BARCODE"
+            }
+          ]
+        },
+        "value": "\u001D010206472189812210CONGRESS\u001D1726033121RPS0GswebU"
+      },
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "https://afriscic.github.io/EAHP_Interoperabillty/CodeSystem/eahp-identifier-type-cs",
+              "code": "HIS_CODE"
+            }
+          ]
+        },
+        "value": "MED003"
+      },
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "https://afriscic.github.io/EAHP_Interoperabillty/CodeSystem/eahp-identifier-type-cs",
+              "code": "PC"
+            }
+          ]
+        },
+        "value": "02064721898122"
+      },
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+              "code": "RI"
+            }
+          ]
+        },
+        "value": "019c4c96-ddff-73d4-986f-37303ff1bc52"
+      },
+      {
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+              "code": "SNO"
+            }
+          ]
+        },
+        "value": "RPS0GswebU"
+      }
+    ],
+    "lotNumber": "CONGRESS",
+    "expiry": "2026-03-31"
+  },
+  "productReference": {
+    "reference": "MED003"
+  }
+}

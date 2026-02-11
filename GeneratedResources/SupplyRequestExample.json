@@ -1,0 +1,22 @@
+{
+  "resourceType": "SupplyRequest",
+  "id": "019c4c96-de35-7ddb-916c-e48543029bf0",
+  "status": "active",
+  "item": {
+    "reference": {
+      "reference": "MED001"
+    }
+  },
+  "quantity": {
+    "value": 30
+  },
+  "authoredOn": "2026-02-11T12:04:41Z",
+  "requester": {
+    "reference": "SC1"
+  },
+  "supplier": [
+    {
+      "reference": "ADC1"
+    }
+  ]
+}

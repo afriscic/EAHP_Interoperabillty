@@ -1,45 +1,32 @@
-using System.Text;
 using System.Text.Json;
+using BarcodeGenerator;
+using Hl7.Fhir.Model;
+using Hl7.Fhir.Serialization;
 using NanoidDotNet;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
-using YamlDotNet.RepresentationModel;
 using ZXing;
 using ZXing.Common;
 using ZXing.Rendering;
 
-Console.WriteLine("Starting Barcode and FHIR Example Generator...");
+Console.WriteLine("Starting Barcode and FHIR JSON Generator...");
 
-var barcodeOutputDir = "Barcodes";
-var barcodeImageDir = "input/images/barcodes";  // For IG Publisher
-var fshOutputDir = "input/fsh/examples/generated";
-var sushiConfigPath = "sushi-config.yaml";
+var baseOutputDir = "GeneratedResources";
 
-// Clean and create output directories
-if (Directory.Exists(barcodeOutputDir))
-    Directory.Delete(barcodeOutputDir, true);
-Directory.CreateDirectory(barcodeOutputDir);
+if (Directory.Exists(baseOutputDir))
+    Directory.Delete(baseOutputDir, true);
 
-if (Directory.Exists(barcodeImageDir))
-    Directory.Delete(barcodeImageDir, true);
-Directory.CreateDirectory(barcodeImageDir);
+Directory.CreateDirectory(baseOutputDir);
 
-if (Directory.Exists(fshOutputDir))
-    Directory.Delete(fshOutputDir, true);
-Directory.CreateDirectory(fshOutputDir);
-
-// Read input data
 var text = File.ReadAllText("BarcodeInput.json");
 var barcodes = JsonSerializer.Deserialize<BarcodeData[]>(text);
 ArgumentNullException.ThrowIfNull(barcodes);
 
-// Track generated resource IDs for sushi-config.yaml
-var generatedResources = new List<string>();
+var medications = new List<Medication>();
+var items = new List<InventoryItem>();
 
-// Setup barcode renderers
 var svgRenderer = new SvgRenderer();
 var pixelRenderer = new PixelDataRenderer();
-
 var options = new EncodingOptions
 {
     PureBarcode = true,
@@ -53,222 +40,84 @@ var writer = new BarcodeWriterGeneric
     Options = options
 };
 
-// Generate a consolidated FSH file for all medications
-var medicationFsh = new StringBuilder();
-medicationFsh.AppendLine("// Auto-generated Medication examples from BarcodeInput.json");
-medicationFsh.AppendLine("// Do not edit manually - regenerate using BarcodeGenerator");
-medicationFsh.AppendLine();
-
-// Generate a consolidated FSH file for all inventory items
-var inventoryFsh = new StringBuilder();
-inventoryFsh.AppendLine("// Auto-generated InventoryItem examples from BarcodeInput.json");
-inventoryFsh.AppendLine("// Do not edit manually - regenerate using BarcodeGenerator");
-inventoryFsh.AppendLine();
-
 foreach (var barcode in barcodes)
 {
-    Console.WriteLine($"Processing GTIN: {barcode.GTIN} ({barcode.MedicationName})...");
+    var medication = medications.FirstOrDefault(f => f.Id == barcode.HISCode);
+    if (medication is null)
+    {
+        medication = Generator.GenerateMedication(barcode.HISCode, barcode.MedicationName, barcode.DoseCode);
+        medications.Add(medication);
 
-    // Create barcode output directories
-    var barcodePath = Path.Combine(barcodeOutputDir, barcode.GTIN);
-    var barcodeImagePath = Path.Combine(barcodeImageDir, barcode.GTIN);
-    Directory.CreateDirectory(Path.Combine(barcodePath, "svg"));
-    Directory.CreateDirectory(Path.Combine(barcodePath, "png"));
-    Directory.CreateDirectory(barcodeImagePath);
+        var json = FhirJsonSerializer.Default.SerializeToString(medication, true);
+        var medPath = Path.Combine(baseOutputDir, "medications", $"{medication.Id}.json");
+        Directory.CreateDirectory(Path.GetDirectoryName(medPath)!);
+        File.WriteAllText(medPath, json);
+    }
 
-    // Generate Medication FSH
-    medicationFsh.AppendLine($"Instance: {barcode.HISCode}");
-    medicationFsh.AppendLine($"InstanceOf: MedicationEAHP");
-    medicationFsh.AppendLine($"Title: \"Generated - {barcode.MedicationName}\"");
-    medicationFsh.AppendLine($"Description: \"Auto-generated Medication resource for {barcode.MedicationName} manufactured by {barcode.Manufacturer}. GTIN: {barcode.GTIN}\"");
-    medicationFsh.AppendLine($"* code.text = \"{barcode.MedicationName}\"");
-    medicationFsh.AppendLine($"* status = #active");
-    medicationFsh.AppendLine();
+    var sn = Nanoid.Generate(Nanoid.Alphabets.LettersAndDigits, 10);
 
-    // Track medication resource
-    generatedResources.Add($"Medication/{barcode.HISCode}");
-
-    // Generate barcodes and inventory items
     for (int i = 0; i < barcode.No; i++)
     {
-        var serialNumber = Nanoid.Generate(Nanoid.Alphabets.LettersAndDigits, 10);
-        var expiryDate = DateOnly.Parse(barcode.ExpiryDate);
-        var exp = expiryDate.ToString("yyMMdd");
-        var rawScan = $"{(char)29}01{barcode.GTIN}10{barcode.BATCH}{(char)29}17{exp}21{serialNumber}";
+        string? ri = null;
 
-        // Generate barcode images
+        if (barcode.NetContentPerPack > 1)
+            sn = Nanoid.Generate(Nanoid.Alphabets.LettersAndDigits, 10);
+        else
+            ri = Guid.CreateVersion7().ToString();
+
+        var exp = "260331";
+        var rawScan = $"{(char)29}01{barcode.GTIN}10{barcode.BATCH}{(char)29}17{exp}21{sn}";
         var matrix = writer.Encode(rawScan);
 
         var svg = svgRenderer.Render(matrix, BarcodeFormat.DATA_MATRIX, string.Empty);
-        File.WriteAllText(Path.Combine(barcodePath, "svg", $"barcode{i}.svg"), svg.Content);
-
+        var svgPath = Path.Combine(baseOutputDir, "images", barcode.GTIN, "svg", $"barcode{i}.svg");
+        Directory.CreateDirectory(Path.GetDirectoryName(svgPath)!);
+        File.WriteAllText(svgPath, svg.Content);
         var png = pixelRenderer.Render(matrix, BarcodeFormat.DATA_MATRIX, string.Empty);
+        var pngPath = Path.Combine(baseOutputDir, "images", barcode.GTIN, "png", $"barcode{i}.png");
+        Directory.CreateDirectory(Path.GetDirectoryName(pngPath)!);
         using var image = Image.LoadPixelData<Bgra32>(png.Pixels, png.Width, png.Height);
-        image.SaveAsPng(Path.Combine(barcodePath, "png", $"barcode{i}.png"));
+        image.SaveAsPng(pngPath);
 
-        // Also save to IG images folder for documentation
-        image.SaveAsPng(Path.Combine(barcodeImagePath, $"barcode{i}.png"));
+        var item = Generator.GenerateInventoryItem(barcode.NetContentPerPack, barcode.BATCH, barcode.HISCode, barcode.HISCode, rawScan, barcode.GTIN, ri, sn);
+        items.Add(item);
 
-        // Generate InventoryItem FSH with predictable ID
-        var inventoryItemId = $"gen-inv-{barcode.HISCode}-{i + 1}";
-
-        // Escape the raw scan for FSH (replace GS char with unicode escape)
-        var rawScanEscaped = rawScan.Replace("\u001d", "\\u001D");
-
-        inventoryFsh.AppendLine($"Instance: {inventoryItemId}");
-        inventoryFsh.AppendLine($"InstanceOf: InventoryItemEAHPInteroperability");
-        inventoryFsh.AppendLine($"Title: \"Generated - {barcode.MedicationName} Pack #{i + 1}\"");
-        inventoryFsh.AppendLine($"Description: \"Auto-generated InventoryItem for {barcode.MedicationName}. Batch: {barcode.BATCH}, Serial: {serialNumber}\"");
-        inventoryFsh.AppendLine($"* status = #active");
-        inventoryFsh.AppendLine($"* baseUnit = EAHPLogisticsUnitCS#indivisible-logistical-unit");
-        inventoryFsh.AppendLine($"* netContent.value = {barcode.NetContentPerPack}");
-        inventoryFsh.AppendLine($"* instance.identifier[rawScan].value = \"{rawScanEscaped}\"");
-        inventoryFsh.AppendLine($"* instance.identifier[rawScan].type = EAHPIdentifierTypeCS#FMD_BARCODE");
-        inventoryFsh.AppendLine($"* instance.identifier[serialNumber].value = \"{serialNumber}\"");
-        inventoryFsh.AppendLine($"* instance.identifier[serialNumber].type = http://terminology.hl7.org/CodeSystem/v2-0203#SNO");
-        inventoryFsh.AppendLine($"* instance.identifier[productBarCode].value = \"{barcode.GTIN}\"");
-        inventoryFsh.AppendLine($"* instance.identifier[productBarCode].type = EAHPIdentifierTypeCS#PRODUCT_BARCODE");
-        inventoryFsh.AppendLine($"* instance.lotNumber = \"{barcode.BATCH}\"");
-        inventoryFsh.AppendLine($"* instance.expiry = \"{barcode.ExpiryDate}\"");
-        inventoryFsh.AppendLine($"* productReference = Reference({barcode.HISCode})");
-        inventoryFsh.AppendLine();
-
-        // Track inventory item resource
-        generatedResources.Add($"InventoryItem/{inventoryItemId}");
+        var json = FhirJsonSerializer.Default.SerializeToString(item, true);
+        var itemPath = Path.Combine(baseOutputDir, "inventoryitems", $"Inv-{medication.Id}-{barcode.NetContentPerPack}-{i}.json");
+        Directory.CreateDirectory(Path.GetDirectoryName(itemPath)!);
+        File.WriteAllText(itemPath, json);
     }
 }
 
-// Write FSH files
-File.WriteAllText(Path.Combine(fshOutputDir, "Generated-Medications.fsh"), medicationFsh.ToString());
-File.WriteAllText(Path.Combine(fshOutputDir, "Generated-InventoryItems.fsh"), inventoryFsh.ToString());
-
-// Generate summary markdown for the IG page
-var summaryMd = new StringBuilder();
-summaryMd.AppendLine("# Generated Barcode Examples");
-summaryMd.AppendLine();
-summaryMd.AppendLine("This page contains auto-generated examples created from barcode data. These examples demonstrate the relationship between physical product barcodes (GS1 Data Matrix) and their corresponding FHIR resources.");
-summaryMd.AppendLine();
-summaryMd.AppendLine("## How These Examples Were Generated");
-summaryMd.AppendLine();
-summaryMd.AppendLine("The [BarcodeGenerator](https://github.com/afriscic/EAHP_Interoperabillty/tree/main/BarcodeGenerator) tool reads `BarcodeInput.json` and generates:");
-summaryMd.AppendLine();
-summaryMd.AppendLine("1. **Data Matrix Barcodes** (SVG and PNG) - FMD-compliant GS1 barcodes");
-summaryMd.AppendLine("2. **Medication FHIR Resources** - One per unique product (HIS code)");
-summaryMd.AppendLine("3. **InventoryItem FHIR Resources** - One per physical pack with unique serial number");
-summaryMd.AppendLine();
-summaryMd.AppendLine("## Generated Medications");
-summaryMd.AppendLine();
-summaryMd.AppendLine("| HIS Code | Medication Name | GTIN | Manufacturer |");
-summaryMd.AppendLine("|----------|-----------------|------|--------------|");
-
-foreach (var barcode in barcodes)
+var orgs = Generator.GenerateOrganizations();
+foreach (var org in orgs)
 {
-    summaryMd.AppendLine($"| [{barcode.HISCode}](Medication-{barcode.HISCode}.html) | {barcode.MedicationName} | {barcode.GTIN} | {barcode.Manufacturer} |");
+    var json = FhirJsonSerializer.Default.SerializeToString(org, true);
+    var orgPath = Path.Combine(baseOutputDir, "organizations", $"{org.Id}.json");
+    Directory.CreateDirectory(Path.GetDirectoryName(orgPath)!);
+    File.WriteAllText(orgPath, json);
 }
 
-summaryMd.AppendLine();
-summaryMd.AppendLine("## Generated Inventory Items");
-summaryMd.AppendLine();
-summaryMd.AppendLine("| Medication | Batch | Expiry | Items Generated |");
-summaryMd.AppendLine("|------------|-------|--------|-----------------|");
+if (items.Count == 0)
+    throw new InvalidOperationException("No inventory items were generated.");
 
-foreach (var barcode in barcodes)
-{
-    summaryMd.AppendLine($"| {barcode.MedicationName} | {barcode.BATCH} | {barcode.ExpiryDate} | {barcode.No} |");
-}
+var itemF = items.First();
+var medicationId = itemF.ProductReference?.Reference;
+var quantity = itemF.NetContent?.Value;
 
-summaryMd.AppendLine();
-summaryMd.AppendLine("## Barcode Format");
-summaryMd.AppendLine();
-summaryMd.AppendLine("The generated barcodes follow the GS1 Data Matrix format for FMD compliance:");
-summaryMd.AppendLine();
-summaryMd.AppendLine("```");
-summaryMd.AppendLine("<GS>01<GTIN>10<BATCH><GS>17<EXPIRY>21<SERIAL>");
-summaryMd.AppendLine("```");
-summaryMd.AppendLine();
-summaryMd.AppendLine("Where:");
-summaryMd.AppendLine("- `<GS>` = ASCII 29 (Group Separator)");
-summaryMd.AppendLine("- `01` = Application Identifier for GTIN");
-summaryMd.AppendLine("- `10` = Application Identifier for Batch/Lot");
-summaryMd.AppendLine("- `17` = Application Identifier for Expiry Date (YYMMDD)");
-summaryMd.AppendLine("- `21` = Application Identifier for Serial Number");
-summaryMd.AppendLine();
-summaryMd.AppendLine("## Sample Barcode");
-summaryMd.AppendLine();
-summaryMd.AppendLine("Below is a sample of the generated barcodes (first item from each product):");
-summaryMd.AppendLine();
+if (quantity is null || string.IsNullOrWhiteSpace(medicationId))
+    throw new InvalidOperationException("First inventory item is missing ProductReference or NetContent.");
 
-foreach (var barcode in barcodes)
-{
-    summaryMd.AppendLine($"### {barcode.MedicationName}");
-    summaryMd.AppendLine();
-    summaryMd.AppendLine($"<img src=\"barcodes/{barcode.GTIN}/barcode0.png\" alt=\"Barcode for {barcode.GTIN}\" width=\"200\"/>");
-    summaryMd.AppendLine();
-}
+var request = Generator.SupplyRequestExample(medicationId, quantity ?? 0);
+var delivery = Generator.SupplyDeliveryExample(request.Id ?? throw new Exception(), [itemF]);
 
-File.WriteAllText("input/pagecontent/generated-examples.md", summaryMd.ToString());
+var requestJson = FhirJsonSerializer.Default.SerializeToString(request, true);
+var deliveryJson = FhirJsonSerializer.Default.SerializeToString(delivery, true);
 
-// Update sushi-config.yaml with generated resources
-UpdateSushiConfig(sushiConfigPath, generatedResources);
+File.WriteAllText(Path.Combine(baseOutputDir, "SupplyRequestExample.json"), requestJson);
+File.WriteAllText(Path.Combine(baseOutputDir, "SupplyDeliveryExample.json"), deliveryJson);
 
-Console.WriteLine();
-Console.WriteLine("Generation complete!");
-Console.WriteLine($"  - Barcode images: {barcodeOutputDir}/ and {barcodeImageDir}/");
-Console.WriteLine($"  - FSH files: {fshOutputDir}/");
-Console.WriteLine($"  - Page content: input/pagecontent/generated-examples.md");
-Console.WriteLine($"  - Updated: {sushiConfigPath}");
-
-static void UpdateSushiConfig(string configPath, List<string> generatedResources)
-{
-    Console.WriteLine($"Updating {configPath} with {generatedResources.Count} generated resources...");
-
-    var yaml = new YamlStream();
-    using (var reader = new StreamReader(configPath))
-    {
-        yaml.Load(reader);
-    }
-
-    var root = (YamlMappingNode)yaml.Documents[0].RootNode;
-
-    // Find or create groups node
-    YamlMappingNode groupsNode;
-    if (root.Children.ContainsKey("groups"))
-    {
-        groupsNode = (YamlMappingNode)root.Children["groups"];
-    }
-    else
-    {
-        groupsNode = new YamlMappingNode();
-        root.Children.Add("groups", groupsNode);
-    }
-
-    // Create GeneratedExamples group
-    var generatedExamplesNode = new YamlMappingNode
-    {
-        { "name", "Generated Examples" },
-        { "description", "Auto-generated examples from barcode data (Demo Medications and Inventory Items)" }
-    };
-
-    // Add resources as a sequence
-    var resourcesSequence = new YamlSequenceNode();
-    foreach (var resource in generatedResources)
-    {
-        resourcesSequence.Add(resource);
-    }
-    generatedExamplesNode.Add("resources", resourcesSequence);
-
-    // Remove existing GeneratedExamples group (if any) and re-add at the end
-    // This ensures it always appears last in the artifacts page
-    if (groupsNode.Children.ContainsKey("GeneratedExamples"))
-    {
-        groupsNode.Children.Remove("GeneratedExamples");
-    }
-    groupsNode.Children.Add("GeneratedExamples", generatedExamplesNode);
-
-    // Write back to file
-    using var writer = new StreamWriter(configPath);
-    yaml.Save(writer, assignAnchors: false);
-}
+Console.WriteLine("Finished!");
 
 class BarcodeData
 {
@@ -277,7 +126,6 @@ class BarcodeData
     public required string BATCH { get; set; }
     public required string HISCode { get; set; }
     public required string MedicationName { get; set; }
-    public required string Manufacturer { get; set; }
     public int NetContentPerPack { get; set; }
-    public required string ExpiryDate { get; set; }
+    public required string DoseCode { get; set; }
 }
