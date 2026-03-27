@@ -11,7 +11,7 @@ This repository contains the EAHP Interoperability FHIR Implementation Guide (IG
 
 ## Resources
 
-### SupplyRequestEAHPInteroperabillity
+### SupplyRequestEAHPInteroperability
 Defines requirements for requesting medication or supplies within a hospital pharmacy context. It specifies mandatory fields such as requester, item, quantity, and delivery details to ensure interoperability.
 
 ### SupplyDeliveryEAHPInteroperability
@@ -28,7 +28,7 @@ Shows a request for Brufen (Ibuprofen) medication, including requester, quantity
 ### SupplyDelivery-BrufenPack-Example
 Represents the delivery of a pack of Brufen, detailing the delivered item, quantity, and delivery date. Useful for illustrating supply fulfillment workflows.
 
-### InventoryReport-Brufen-Exapmle
+### InventoryReport-Brufen-Example
 Provides a snapshot of Brufen inventory, including current stock levels and item details. Helps pharmacies report and monitor medication availability.
 
 ### InventoryItems-Brufen
@@ -42,7 +42,7 @@ Defines the Brufen medication resource, including active ingredients, strength, 
 - `input/fsh/resources/SupplyRequest.fsh`:  
   `// TODO: Add validation for requester field`
 
-- `input/fsh/examples/InventoryReport-Brufen-Exapmle.fsh`:  
+- `input/fsh/examples/InventoryReport-Brufen-Example.fsh`:  
   `// TODO: Update example to reflect new inventory structure`
 
 - `input/fsh/resources/InventoryItem.fsh`:  
